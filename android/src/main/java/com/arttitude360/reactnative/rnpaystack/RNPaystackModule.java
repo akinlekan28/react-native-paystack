@@ -234,6 +234,18 @@ public class RNPaystackModule extends ReactContextBaseJavaModule {
             charge.setCurrency(chargeOptions.getString("currency"));
         }
 
+        if (hasStringKey("metadata")) {
+            try {
+                String metaObject = chargeOptions.getString("metadata");
+                JSONObject metadata = new JSONObject(metaObject);
+                charge.putMetadata("metadata", metadata);
+            }
+            catch(Exception e){
+                Log.d("see error = ", e.toString());
+            }
+            
+        }
+
         if (hasStringKey("plan")) {
             charge.setPlan(chargeOptions.getString("plan"));
         }

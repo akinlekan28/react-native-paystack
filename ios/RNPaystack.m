@@ -131,6 +131,9 @@ RCT_EXPORT_METHOD(chargeCard:(NSDictionary *)params
     
     if (! [self cardParamsAreValid:params[@"cardNumber"] withMonth:params[@"expiryMonth"] withYear:params[@"expiryYear"] andWithCvc:params[@"cvc"]]) {
 
+
+        requestIsCompleted = YES;
+
         // NSMutableDictionary *returnInfo = [self setErrorMsg:self.errorMsg withErrorCode:self.errorCode];
         if (_reject) {
             _reject(self.errorCode, self.errorMsg, nil);
@@ -150,6 +153,10 @@ RCT_EXPORT_METHOD(chargeCard:(NSDictionary *)params
 
         if (params[@"currency"] != nil) {
             transactionParams.currency = params[@"currency"];
+        }
+
+        if (params[@"metadata"] != nil) {
+            transactionParams.metadata = params[@"metadata"];
         }
 
         if (params[@"plan"] != nil) {
@@ -224,6 +231,8 @@ RCT_EXPORT_METHOD(chargeCardWithAccessCode:(NSDictionary *)params
     requestIsCompleted = NO;
     
     if (! [self cardParamsAreValid:params[@"cardNumber"] withMonth:params[@"expiryMonth"] withYear:params[@"expiryYear"] andWithCvc:params[@"cvc"]]) {
+
+        requestIsCompleted = YES;
 
         // NSMutableDictionary *returnInfo = [self setErrorMsg:self.errorMsg withErrorCode:self.errorCode];
         if (_reject) {
